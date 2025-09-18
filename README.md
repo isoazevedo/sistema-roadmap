@@ -287,7 +287,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 **Seu Nome**
 - GitHub: [@isoazevedo](https://github.com/isoazevedo)
 - LinkedIn: [israel-azevedo](https://linkedin.com/in/israel-azevedo-10237a100)
-- Email: seu-email@exemplo.com
+- Email: israel@aztell.com.br
 
 ## 🙏 Agradecimentos
 
@@ -301,5 +301,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ⭐ **Se este projeto foi útil, deixe uma estrela!** ⭐
 
 <p align="center">
-  Feito com ❤️ para organizar melhor seus projetos
+  Feito com atenção para organizar melhor seus projetos
 </p>
