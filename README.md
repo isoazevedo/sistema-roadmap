@@ -32,7 +32,7 @@ Um sistema completo de gerenciamento de roadmaps desenvolvido em PHP com MariaDB
 - ✅ Organização em timeline visual
 - ✅ Sistema de prioridades (baixa, média, alta, crítica)
 - ✅ Controle de progresso individual
-- ✅ Status específicos (pendente, em progresso, concluído, atrasado)
+- ✅ Status específicos (pendente, em progresso, concluído, atrasado) com filtros
 - ✅ Prazos e entregas
 
 ### ✏️ **Tarefas**
@@ -294,12 +294,11 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 - Bootstrap pela framework CSS
 - Font Awesome pelos ícones
 - Comunidade PHP pelas referências
-- ChatGPT pela assistência no desenvolvimento
 
 ---
 
 ⭐ **Se este projeto foi útil, deixe uma estrela!** ⭐
 
 <p align="center">
-  Feito com atenção para organizar melhor seus projetos
+  Feito para organizar melhor seus projetos
 </p>
