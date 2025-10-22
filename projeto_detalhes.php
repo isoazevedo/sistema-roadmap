@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php';
+require_once 'config/config.php';
 
 $projeto_id = $_GET['id'] ?? null;
 if (!$projeto_id) {
@@ -17,18 +17,25 @@ if (!$projeto) {
     exit;
 }
 
+$filter_status = $_GET['status'] ?? '';
+$params = [$projeto_id];
+$statusSql = '';
+if ($filter_status !== '') {
+    $statusSql = " AND m.status = ?";
+    $params[] = $filter_status;
+}
 // Buscar marcos do projeto
 $stmt = $db->prepare("
-    SELECT m.*, 
+    SELECT m.*,
            COUNT(t.id) as total_tasks,
            COUNT(CASE WHEN t.status = 'concluido' THEN 1 END) as completed_tasks
-    FROM milestones m 
-    LEFT JOIN tasks t ON m.id = t.milestone_id 
-    WHERE m.project_id = ? 
-    GROUP BY m.id 
+    FROM milestones m
+    LEFT JOIN tasks t ON m.id = t.milestone_id
+    WHERE m.project_id = ? $statusSql
+    GROUP BY m.id
     ORDER BY m.due_date ASC, m.created_at ASC
 ");
-$stmt->execute([$projeto_id]);
+$stmt->execute($params);
 $marcos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Calcular progresso geral do projeto
@@ -42,6 +49,9 @@ if ($count_marcos > 0) {
 } else {
     $projeto_progress = 0;
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -122,6 +132,18 @@ if ($count_marcos > 0) {
                     <h5 class="mb-0">
                         <i class="fas fa-flag"></i> Marcos do Projeto
                     </h5>
+                    <!-- HTML: substitua o comentário pelo formulário de filtro -->
+                    <form method="get" class="align-items-center">
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($projeto['id']) ?>">
+                        <label class="me-4 mb-0 small">Filtrar por Status:</label>
+                        <select name="status" class="form-select form-select-sm me-2" onchange="this.form.submit()">
+                            <option value="" <?= $filter_status === '' ? 'selected' : '' ?>>Todos</option>
+                            <option value="pendente" <?= $filter_status === 'pendente' ? 'selected' : '' ?>>Pendente</option>
+                            <option value="em_andamento" <?= $filter_status === 'em_andamento' ? 'selected' : '' ?>>Em Andamento</option>
+                            <option value="concluido" <?= $filter_status === 'concluido' ? 'selected' : '' ?>>Concluído</option>
+                        </select>
+                        <noscript><button class="btn btn-sm btn-outline-secondary" type="submit">Filtrar</button></noscript>
+                    </form>
                     <a href="marco_form.php?projeto_id=<?= $projeto['id'] ?>" class="btn btn-primary btn-sm">
                         <i class="fas fa-plus"></i> Novo Marco
                     </a>
